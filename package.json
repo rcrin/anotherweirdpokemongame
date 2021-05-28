@@ -1,0 +1,39 @@
+{
+	"name": "just-another-weird-pokemon-game",
+	"version": "1.0.0",
+	"description": "A pokemon game project using Phaser 3 and Parceljs",
+	"scripts": {
+		"start": "parcel src/index.html -p 8000",
+		"build": "parcel build src/index.html --out-dir dist",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "supertommy",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rcrin/JustAnotherWeirdPokemonGame.git"
+	},
+	"homepage": "https://github.com/rcrin/JustAnotherWeirdPokemonGame",
+	"devDependencies": {
+		"@babel/core": "^7.10.5",
+		"babel-eslint": "^10.1.0",
+		"eslint": "^6.8.0",
+		"minimist": ">=1.2.2",
+		"parcel-bundler": "^1.12.5",
+		"parcel-plugin-clean-easy": "^1.0.2",
+		"parcel-plugin-static-files-copy": "^2.4.3",
+		"webpack": "^5.36.2"
+	},
+	"dependencies": {
+		"phaser": "^3.54.0",
+		"phaser3-rex-plugins": "^1.1.45",
+		"phaser3-weapon-plugin": "^2.1.0"
+	},
+	"parcelCleanPaths": [
+		"dist"
+	],
+	"staticFiles": {
+		"staticPath": "public",
+		"watcherGlob": "**"
+	}
+}
