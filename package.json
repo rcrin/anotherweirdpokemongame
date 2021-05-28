@@ -7,7 +7,7 @@
 		"build": "parcel build src/index.html --out-dir dist",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"author": "supertommy",
+	"author": "rcrin",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
