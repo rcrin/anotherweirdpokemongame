@@ -1,1 +1,1 @@
-# JustAnotherWerirdPokemonGame
+# JustAnotherWeirdPokemonGame
