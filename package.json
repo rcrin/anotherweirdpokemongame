@@ -7,7 +7,6 @@
 		"build": "parcel build src/index.html --out-dir dist",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	
 	"author": "rcrin",
 	"license": "MIT",
 	"repository": {
@@ -20,15 +19,15 @@
 		"babel-eslint": "^10.1.0",
 		"eslint": "^6.8.0",
 		"minimist": ">=1.2.2",
-		"parcel-bundler": "^1.12.5",
-		"parcel-plugin-clean-easy": "^1.0.2",
-		"parcel-plugin-static-files-copy": "^2.4.3",
 		"webpack": "^5.36.2"
 	},
 	"dependencies": {
 		"phaser": "^3.54.0",
 		"phaser3-rex-plugins": "^1.1.45",
-		"phaser3-weapon-plugin": "^2.1.0"
+		"phaser3-weapon-plugin": "^2.1.0",
+		"parcel-bundler": "^1.12.5",
+		"parcel-plugin-clean-easy": "^1.0.2",
+		"parcel-plugin-static-files-copy": "^2.4.3"
 	},
 	"parcelCleanPaths": [
 		"dist"
@@ -38,5 +37,4 @@
 		"watcherGlob": "**"
 	},
 	"heroku-run-build-script": true
-	
 }
