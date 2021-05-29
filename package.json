@@ -2,8 +2,9 @@
 	"name": "just-another-weird-pokemon-game",
 	"version": "1.0.0",
 	"description": "A pokemon game project using Phaser 3 and Parceljs",
+	"main": "server.js",
 	"scripts": {
-		"start": "parcel index.html",
+		"start": "parcel index.html -p 8000",
 		"build": "parcel build index.html --no-minify  --public-url ./",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -25,8 +26,8 @@
 		"minimist": ">=1.2.2",
 		"webpack": "^5.36.2",
 		"parcel-bundler": "1.12.5",
-		"parcel-plugin-clean-easy": "^1.0.2",
-		"parcel-plugin-static-files-copy": "^2.4.3"
+		"logfmt": "^1.2.0",
+		"express": "^4.16.2"
 	},
 	"parcelCleanPaths": [
 		"dist"
