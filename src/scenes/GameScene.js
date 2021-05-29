@@ -567,7 +567,7 @@ export default class GameScene extends Phaser.Scene{
         this.player.body.setSize(this.player.width,29,true)
     }
 
-    setScore = (value) =>
+    setScore(value)
     {
         this.score += value
         this.scoreLabel.text = "SCORE: " + this.score
