@@ -4,7 +4,7 @@
 	"description": "A pokemon game project using Phaser 3 and Parceljs",
 	"scripts": {
 		"start": "parcel index.html",
-		"build": "parcel build src/index.html --no-minify  --public-url ./",
+		"build": "parcel build index.html --no-minify  --public-url ./",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "rcrin",
