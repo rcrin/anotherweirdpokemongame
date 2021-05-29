@@ -4,7 +4,7 @@ import GameScene from './scenes/GameScene'
 import GameOver from './scenes/GameOver'
 
 const config = {
-	type: Phaser.AUTO,
+	type: Phaser.WEBGL,
 	width: 800,
 	height: 500,
 	physics: {
