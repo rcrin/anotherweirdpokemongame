@@ -1,8 +1,7 @@
 import Phaser from 'phaser'
 import { WeaponPlugin } from 'phaser3-weapon-plugin'
-import AnimationFactory from './AnimationFactory'
-import Enemy from './Enemy'
-
+import AnimationFactory from '../elements/AnimationFactory'
+import Enemy from '../elements/Enemy'
 const PLAT_SM_KEY ='platform_sm'
 const GROUND_KEY = 'ground'
 const PLAT_KEY = 'platform'
@@ -189,6 +188,7 @@ export default class GameScene extends Phaser.Scene{
         //CAMERA CONFIG
         this.cameras.main.setBounds(0, 0, 6749, height,true)
         this.cameras.main.startFollow(this.player)
+        this.KeyZ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z)
         
       
 
@@ -361,7 +361,7 @@ export default class GameScene extends Phaser.Scene{
     update()
 	{
       
-        let KeyZ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z)
+      
         const cam = this.cameras.main
         const camera_speed = 200
         ground.tilePositionX = cam.scrollX * 1.5
@@ -396,7 +396,7 @@ export default class GameScene extends Phaser.Scene{
             {
                
                 this.player.setVelocityX(0)
-                if(KeyZ.isDown)
+                if(this.KeyZ.isDown)
                 {
                     console.log('X - '+this.player.x+' Y - '+this.player.y)
                     weapon.fireAngle = direction=='right'? 0 : -180 
@@ -511,11 +511,11 @@ export default class GameScene extends Phaser.Scene{
                     enemy[ctr].anims.play(enemy[ctr].texture.key+'_right', true)
                 }
                 enemy[ctr].direction = enemy[ctr].body.x;
+                
+               
 
 
             }
-            
-            
             
         }
         

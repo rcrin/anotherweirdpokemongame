@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 
 import GameScene from './scenes/GameScene'
 import GameOver from './scenes/GameOver'
+import PreloadScene from './scenes/PreloadScene'
 
 const config = {
 	type: Phaser.WEBGL,
@@ -17,7 +18,7 @@ const config = {
 	fps: 60,
 	roundPixels: true,
 	pixelArt: true,
-	scene: [GameScene,GameOver]
+	scene: [PreloadScene,GameScene,GameOver]
 }
 
 // @ts-ignore
