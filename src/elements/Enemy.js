@@ -14,8 +14,19 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite
         this.texture = config.texture
         this.hitpoints = 0
         this.config = config
+        this.habitat = null
     }
 
+    setEnemyHabitat(habitat)
+    {
+        this.habitat = habitat
+    }
+    
+    getHabitat()
+    {
+        return this.habitat
+    }
+    
     setDirection(direction)
     {
         this.direction = direction

@@ -17,7 +17,7 @@ const WEEDLE = 'weedle'
 const RATTATA = 'rattata'
 const STAR_KEY = 'star'
 const INVI_WALL_KEY = 'invi_wall'
-let direction = 'right';
+let direction = 'right'
 let ground;
 let enemies;
 let weapon;
@@ -58,31 +58,7 @@ export default class GameScene extends Phaser.Scene{
     
     preload()
     {
-        this.load.audio('stage_bgm','assets/audio/stage.mp3')
-        this.load.audio('fireball_sfx','assets/audio/fireball.mp3')
-        this.load.audio('explosion_sfx','assets/audio/meteorimpact.wav')
-        this.load.image('sky','assets/sky.png')
-        this.load.image('mountain','assets/mountain.png')
-        this.load.image('ground', 'assets/ground.png')
-        this.load.image('trees', 'assets/trees.png')
-        this.load.image('platform','assets/platform.png')
-        this.load.image('star','assets/star.png')
-        this.load.image('bomb','assets/bomb.png')
-        this.load.image('trees','assets/trees.png')
-        this.load.image('platform_sm','assets/small_platform.png')
-        this.load.image('invi_wall','assets/inviwall.png')
-        this.load.spritesheet('spearow','assets/spearow.png',{frameWidth:58, frameHeight:55})
-        this.load.spritesheet('vileplume','assets/vileplume.png',{frameWidth:58, frameHeight:52})
-        this.load.spritesheet('explosion','assets/explosion.png',{frameWidth:44, frameHeight:41})
-        this.load.spritesheet('fireball','assets/fireball.png',{frameWidth: 57, frameHeight:26})
-        this.load.spritesheet('weedle','assets/weedle.png',{frameWidth: 53, frameHeight:40})
-        this.load.spritesheet('pika_attack','assets/pika_attack.png',{frameWidth: 41, frameHeight:41})
-        this.load.spritesheet('rattata_idle','assets/rattata.png',{frameWidth: 41, frameHeight:41})
-        this.load.spritesheet('rattata','assets/rattata.png',{frameWidth: 45, frameHeight:46})
-        this.load.spritesheet('pika_turn','assets/pika_turn.png',{frameWidth: 37, frameHeight:38})
-        this.load.spritesheet('dude','assets/pika_run.png',{frameWidth: 60, frameHeight:38})
-        this.load.spritesheet('pika_jump','assets/pika_jump.png',{frameWidth: 45, frameHeight:45})
-        this.load.bitmapFont("pixelFont","assets/font/font.png","assets/font/font.xml")
+        
     }
 
     create()
@@ -177,7 +153,7 @@ export default class GameScene extends Phaser.Scene{
         {
             if(x[m].type!='spearow')
             {
-                this.physics.add.collider(x[m],this.invi_wall)
+                this.physics.add.overlap(x[m],this.invi_wall,this.enemeyCollideInviWall,null)
             }
         }
      
@@ -311,6 +287,7 @@ export default class GameScene extends Phaser.Scene{
                 enemy.setEnemyMovement(-enemy.getEnemySpeed())
                 enemy.anims.play(RATTATA+'_left')
                 enemy.setCollideWorldBounds(true)
+                enemy.setEnemyHabitat('land')
                 this.physics.add.collider(enemy,ground)
                 this.physics.add.collider(enemy,platform)
                 break;
@@ -320,6 +297,7 @@ export default class GameScene extends Phaser.Scene{
                 enemy.setEnemyHitPoints(1)
                 enemy.setEnemySpeed(150)
                 enemy.setGravityY(0)
+                enemy.setEnemyHabitat('air')
                 enemy.anims.play(SPEAROW+'_left')
                 break;
             }
@@ -328,6 +306,7 @@ export default class GameScene extends Phaser.Scene{
                 enemy.setEnemyHitPoints(1)
                 enemy.setEnemySpeed(40)
                 enemy.anims.play(WEEDLE+'_left')
+                enemy.setEnemyHabitat('land')
                 enemy.setEnemyMovement(-enemy.getEnemySpeed())
                 enemy.setCollideWorldBounds(true)
                 this.physics.add.collider(enemy,ground)
@@ -339,6 +318,7 @@ export default class GameScene extends Phaser.Scene{
                 enemy.setEnemyHitPoints(2)
                 enemy.setEnemySpeed(70)
                 enemy.anims.play(VILEPLUME+'_left')
+                enemy.setEnemyHabitat('land')
                 enemy.setEnemyMovement(-enemy.getEnemySpeed())
                 enemy.setCollideWorldBounds(true)
                 this.physics.add.collider(enemy,ground)
@@ -479,24 +459,9 @@ export default class GameScene extends Phaser.Scene{
         let enemy_size = enemy.length;
         for(let ctr = 0; ctr < enemy_size; ctr++)
         {
-            if(enemy[ctr].type!='spearow')
+            if(enemy[ctr].habitat=='air')
             {
-                if(enemy[ctr].body.touching.left || enemy[ctr].body.blocked.left)
-                {
-                    enemy[ctr].body.setVelocityX(+enemy[ctr].speed)
-                    enemy[ctr].anims.play(enemy[ctr].texture.key+'_right', true)
-                }
-                else if(enemy[ctr].body.touching.right || enemy[ctr].body.blocked.right)
-                {
-                    enemy[ctr].body.setVelocityX(-enemy[ctr].speed)
-                    enemy[ctr].anims.play(enemy[ctr].texture.key+'_left', true)
-                }
-            }
-            else
-            {
-                
                 enemy[ctr].setGravityY(-300)
-              
                 if(enemy[ctr].x - this.player.x <= 400)
                 {
                     this.physics.moveToObject(enemy[ctr], this.player, enemy[ctr].speed)
@@ -511,10 +476,6 @@ export default class GameScene extends Phaser.Scene{
                     enemy[ctr].anims.play(enemy[ctr].texture.key+'_right', true)
                 }
                 enemy[ctr].direction = enemy[ctr].body.x;
-                
-               
-
-
             }
             
         }
@@ -557,7 +518,7 @@ export default class GameScene extends Phaser.Scene{
     // @ts-ignore
     createScoreLabel(x, y, score)
 	{
-        const label = this.add.bitmapText(x,y,"pixelFont","SCORE: "+this.score,32)
+        const label = this.add.bitmapText(x,y,"pixelFont","SCORE: "+this.score,32).setDropShadow(2,1,0x00,1)
 		this.add.existing(label)
 		return label
 	}
@@ -620,6 +581,23 @@ export default class GameScene extends Phaser.Scene{
             bullet.kill()
         }
         enemy.clearTint()
+    }
+
+    enemeyCollideInviWall(enemy,wall)
+    {
+        if(enemy.habitat!='air')
+        {
+            if(enemy.body.touching.left || enemy.body.blocked.left)
+            {
+                enemy.body.setVelocityX(+enemy.speed)
+                enemy.anims.play(enemy.texture.key+'_right', true)
+            }
+            else if(enemy.body.touching.right || enemy.body.blocked.right)
+            {
+                enemy.body.setVelocityX(-enemy.speed)
+                enemy.anims.play(enemy.texture.key+'_left', true)
+            }
+        }
     }
 
  

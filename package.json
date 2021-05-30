@@ -15,8 +15,9 @@
 		"url": "https://github.com/rcrin/JustAnotherWeirdPokemonGame.git"
 	},
 	"homepage": "https://github.com/rcrin/JustAnotherWeirdPokemonGame",
-	"devDependencies": {},
+	"devDependencies": {
 	
+	},
 	"dependencies": {
 		"phaser": "^3.54.0",
 		"phaser3-rex-plugins": "^1.1.45",
