@@ -22,8 +22,6 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('ground', 'assets/ground.png')
         this.load.image('trees', 'assets/trees.png')
         this.load.image('platform','assets/platform.png')
-        this.load.image('star','assets/star.png')
-        this.load.image('bomb','assets/bomb.png')
         this.load.image('trees','assets/trees.png')
         this.load.image('platform_sm','assets/small_platform.png')
         this.load.image('invi_wall','assets/inviwall.png')
