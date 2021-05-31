@@ -23,6 +23,8 @@ let enemies;
 let weapon;
 let fireball_sfx;
 let explosion_sfx;
+let cursors;
+let touching_ground=false;
 const PLAYER_SPEED = 200;
 
 
@@ -143,10 +145,11 @@ export default class GameScene extends Phaser.Scene{
 
         //COLLISION
         this.physics.world.setBoundsCollision(true, true, false, true)
-        this.physics.add.collider(this.player,platforms)
+        this.physics.add.collider(this.player,platforms,this.AddFloatingTileCollision,null)
         this.physics.add.collider(this.player, ground,this.AddTileCollision,null)
         // this.physics.add.collider(stars,platforms)
         // this.physics.add.collider(stars,ground)
+        
        
         let x = enemies.getChildren()
         for(let m=0;m<x.length;m++)
@@ -178,7 +181,7 @@ export default class GameScene extends Phaser.Scene{
         
         
         //CONTROLS
-        this.cursors = this.input.keyboard.createCursorKeys()
+        cursors = this.input.keyboard.createCursorKeys()
        
 
     }
@@ -349,7 +352,7 @@ export default class GameScene extends Phaser.Scene{
         //touching down
         if(this.player.body.touching.down)
         {
-            if(this.cursors.left.isDown)
+            if(cursors.left.isDown)
 		    {
                 cam.scrollX -= camera_speed
                 this.player.setVelocityX(-PLAYER_SPEED)
@@ -358,7 +361,7 @@ export default class GameScene extends Phaser.Scene{
                 direction = 'left';
               
             }
-            else if(this.cursors.right.isDown)
+            else if(cursors.right.isDown)
             {
                 cam.scrollX += camera_speed
                 this.player.setVelocityX(PLAYER_SPEED)
@@ -367,14 +370,13 @@ export default class GameScene extends Phaser.Scene{
                 direction = 'right';  
               
             }
-            else if(this.cursors.down.isDown)
+            else if(cursors.down.isDown && this.KeyZ.isUp && touching_ground==false)
             {
                 this.player.body.checkCollision.down = false
                 console.log('Down is currently held from ground')
             }
             else
             {
-               
                 this.player.setVelocityX(0)
                 if(this.KeyZ.isDown)
                 {
@@ -398,20 +400,16 @@ export default class GameScene extends Phaser.Scene{
                 this.player.body.setSize(this.player.width,29,true)
             }
 
-            if(this.cursors.up.isDown)
+            if(cursors.up.isDown)
             {
                 this.player.setVelocityY(-300)
                 this.player.body.setSize(this.player.width,29,true)
                 this.player.body.checkCollision.up = false
             }
-
-          
-
-
         }
         else
         {
-            if (this.cursors.left.isDown)
+            if (cursors.left.isDown)
 		    {
                 cam.scrollX -= camera_speed
                 this.player.setVelocityX(-PLAYER_SPEED)
@@ -419,7 +417,7 @@ export default class GameScene extends Phaser.Scene{
                 this.player.body.setSize(this.player.width,29,true)
                 direction = 'left';
             }
-            else if(this.cursors.right.isDown)
+            else if(cursors.right.isDown)
             {
                 cam.scrollX += camera_speed
                 this.player.setVelocityX(PLAYER_SPEED)
@@ -427,7 +425,7 @@ export default class GameScene extends Phaser.Scene{
                 this.player.body.setSize(this.player.width,29,true)
                 direction = 'right';  
             }
-            else if(this.cursors.up.isDown)
+            else if(cursors.up.isDown)
             {
                 this.player.setVelocityX(0)
                 this.player.anims.play(direction=='right'? 'up_right':'up_left', true)
@@ -441,7 +439,7 @@ export default class GameScene extends Phaser.Scene{
                 console.log('going-down')
             }
 
-            if(this.cursors.down.isDown==false)
+            if(cursors.down.isDown==false)
             {
                 this.player.body.checkCollision.down = true
             }
@@ -479,11 +477,6 @@ export default class GameScene extends Phaser.Scene{
             }
             
         }
-        
-      
-        
-     
-
         cam.setRoundPixels(true)
 	}
 
@@ -549,10 +542,18 @@ export default class GameScene extends Phaser.Scene{
         }   
         
     }
+    AddFloatingTileCollision()
+    {
+        touching_ground=false
+    }
 
     AddTileCollision(player)
     {
         player.body.checkCollision.down=true
+        if(cursors.down.isDown)
+        {
+            touching_ground=true
+        }
     }
 
        
